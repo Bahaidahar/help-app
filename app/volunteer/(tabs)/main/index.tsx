@@ -1,12 +1,13 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { Stack } from "expo-router";
 import { FilterBlock } from "@/src/features/FilterBlock";
 import { InvalidCards } from "@/src/widgets/InvalidCards";
 import { MyMap } from "@/src/widgets/Map";
 
 const MainScreen = () => {
+  const COLORS = useColors();
   const [searchValue, setSearchValue] = useState("");
   const [isFoodProblem, setIsFoodProblem] = useState(false);
   const [isClothesProblem, setIsClothesProblem] = useState(false);

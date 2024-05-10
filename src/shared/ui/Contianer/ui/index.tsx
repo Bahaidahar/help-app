@@ -1,4 +1,4 @@
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { View } from "react-native";
 
 interface IContainer {
@@ -8,6 +8,7 @@ interface IContainer {
 }
 
 const Container = ({ children, size, verPad }: IContainer) => {
+  const COLORS = useColors();
   return (
     <View
       style={{

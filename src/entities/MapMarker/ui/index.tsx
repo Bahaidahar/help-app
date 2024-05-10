@@ -2,7 +2,7 @@ import { View, Image, Alert } from "react-native";
 import React from "react";
 import { Callout, Marker } from "react-native-maps";
 import { P } from "@/src/shared/ui/Texts";
-import { COLORS } from "@/src/shared/utils";
+import { useColors } from "@/src/shared/utils";
 import { IMapMarker } from "@/src/shared/interface";
 import { useRouter } from "expo-router";
 
@@ -15,7 +15,7 @@ const MapMarker = ({
   desc,
 }: IMapMarker) => {
   const router = useRouter();
-
+  const COLORS = useColors();
   const onClickShowMarker = (marker: string, index: number) => {
     Alert.alert("Подтверждение", `Вы хотите увидеть анкету "${marker}"?`, [
       {

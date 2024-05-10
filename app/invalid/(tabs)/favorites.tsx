@@ -29,12 +29,7 @@
 //         }}
 //       >
 //         <View>
-//           <P
-//             size="large"
-//             text="Принятые заявки"
-//             color={COLORS.contrat}
-//             isCenter
-//           />
+//           <P size="large" text="Мои заявки" color={COLORS.contrat} isCenter />
 //         </View>
 //         <InvalidCards
 //           searchValue={searchValue}

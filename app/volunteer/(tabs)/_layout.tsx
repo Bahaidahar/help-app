@@ -1,4 +1,4 @@
-import { COLORS } from "@/src/shared/utils";
+import { useColors } from "@/src/shared/utils";
 import { Tabs } from "expo-router";
 import {
   ChatIcon,
@@ -6,8 +6,10 @@ import {
   MainPageIcon,
   ProfileIcon,
 } from "@/src/shared/icons";
+import { COLORS } from "@/src/shared/utils/Colors";
 
 export default function TabLayout() {
+  // const COLORS = useColors();
   return (
     <Tabs
       screenOptions={{
@@ -46,7 +48,7 @@ export default function TabLayout() {
           headerShown: false,
         }}
       /> */}
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="favorites"
         options={{
           tabBarIcon: ({ color }) => <FavoritesIcon color={color} />,
@@ -55,7 +57,7 @@ export default function TabLayout() {
           headerTitle: "",
           headerShown: false,
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="profile"
         options={{

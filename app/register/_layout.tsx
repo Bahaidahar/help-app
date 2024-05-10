@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { COLORS } from "@/src/shared/utils";
-
+import { COLORS } from "@/src/shared/utils/Colors";
 export default function _layout() {
   return (
     <Stack>

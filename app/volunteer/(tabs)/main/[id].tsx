@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Linking, ScrollView, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { Container } from "@/src/shared/ui/Contianer";
 import { P } from "@/src/shared/ui/Texts";
 import { Button } from "@/src/shared/ui/Button";
@@ -9,6 +9,7 @@ import { ChatIcon, FavoritesIcon, WhatsappIcon } from "@/src/shared/icons";
 import { MyMap } from "@/src/widgets/Map";
 
 const User = () => {
+  const COLORS = useColors();
   const { id } = useLocalSearchParams();
   const [showMap, setShowMap] = useState(false);
   const markers = [
@@ -99,7 +100,7 @@ const User = () => {
                 onPress={() => {
                   setShowMap(!showMap);
                 }}
-                text="Взять зявку"
+                text="Принять заявку"
                 padHor={30}
                 padVer={7}
                 color="secondary"

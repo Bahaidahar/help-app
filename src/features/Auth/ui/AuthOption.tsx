@@ -2,19 +2,22 @@ import { View } from "react-native";
 import { Button } from "@/src/shared/ui/Button";
 import { InputWithLabel } from "@/src/entities/InputWithLabel";
 import { useState } from "react";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { MarkText } from "@/src/shared/ui/MarkText";
 import { router } from "expo-router";
 import { singup } from "../api/signup";
 import { singin } from "../api/signin";
 import { P } from "@/src/shared/ui/Texts";
-import { storeData } from "@/src/shared/utils/storeData";
+import { getData, storeData } from "@/src/shared/utils/storeData";
+import { addClient } from "../api/addClient";
+import { addStaff } from "../api/addStaff";
 
 interface IAuthOption {
   variant: boolean;
 }
 
 const AuthOption = ({ variant }: IAuthOption) => {
+  const COLORS = useColors();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,10 +25,10 @@ const AuthOption = ({ variant }: IAuthOption) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onClickAuth = async () => {
-    setPhone("");
-    setPassword("");
-    setConfirmPassword("");
-    setErrorMessage("");
+    // setPhone("");
+    // setPassword("");
+    // setConfirmPassword("");
+    // setErrorMessage("");
     if (!phone.trim() || !password.trim()) {
       setErrorMessage("Заполни поля кожаный ублюдок");
       setShowError(true);
@@ -43,11 +46,22 @@ const AuthOption = ({ variant }: IAuthOption) => {
         setShowError(true);
         setErrorMessage("Введите поля корректно");
       }
-      if (loginres === 200) {
-        if (true) {
-          router.push("/volunteer/(tabs)/main");
-        } else {
+      if (loginres.status === 200) {
+        if (loginres.data.type === 0) {
+          const role = await getData("role");
+          console.log(loginres.data.type);
+          console.log(role);
+          if (role === "2") {
+            await addStaff();
+            router.push("/volunteer/(tabs)/main");
+          } else if (role === "1") {
+            await addClient();
+            router.push("/invalid/(tabs)/main");
+          }
+        } else if (loginres.data.type === 1) {
           router.push("/invalid/(tabs)/main");
+        } else if (loginres.data.type === 2) {
+          router.push("/volunteer/(tabs)/main");
         }
       }
     } else {

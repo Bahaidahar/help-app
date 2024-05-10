@@ -5,31 +5,35 @@ import {
   MedicalIcon,
 } from "@/src/shared/icons";
 import { IInvalidCard } from "@/src/shared/interface";
+import { ICard } from "@/src/shared/interface/InvalidCard";
 import { Container } from "@/src/shared/ui/Contianer";
-import { COLORS, SIZES } from "@/src/shared/utils";
-import { Link, router, useRouter } from "expo-router";
+import { useColors, SIZES } from "@/src/shared/utils";
+import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
 
-interface SpecialInvalidCard extends IInvalidCard {
+interface SpecialInvalidCard extends ICard {
   forInvalid: boolean;
 }
 
 const InvalidCard = ({
-  name,
-  desc,
-  id,
-  isBlind,
-  isChild,
-  isFood,
-  isMedicine,
   forInvalid,
+  id,
+  is_ended,
+  is_viewed,
+  description,
+  stars,
+  staff_username,
+  review,
+  address,
+  client_username,
 }: SpecialInvalidCard) => {
+  const COLORS = useColors();
   const router = useRouter();
   return (
     <TouchableOpacity
       onPress={() => {
         if (forInvalid) {
-          router.push(`/invalid/(tabs)/main/${id}`);
+          router.push(`/invalid/(tabs)/main/${description}-${address}`);
         } else {
           router.push(`/volunteer/(tabs)/main/${id}`);
         }
@@ -41,7 +45,6 @@ const InvalidCard = ({
             flexDirection: "row",
             alignItems: "center",
             gap: SIZES.regular,
-            justifyContent: "space-between",
           }}
         >
           <View
@@ -54,23 +57,11 @@ const InvalidCard = ({
           ></View>
           <View style={{ flexDirection: "column", gap: SIZES.light }}>
             <Text style={{ fontSize: SIZES.semiMedium, fontWeight: "500" }}>
-              {name}
+              {address}
             </Text>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>{desc}</Text>
-          </View>
-          <View style={{ flexDirection: "column", gap: 4 }}>
-            <View style={{ flexDirection: "row", gap: SIZES.light }}>
-              <FoodIcon color={isFood ? COLORS.secondary : COLORS.primary} />
-              <ChildIcon color={isChild ? COLORS.secondary : COLORS.primary} />
-            </View>
-            <View style={{ flexDirection: "row", gap: SIZES.light }}>
-              <MedicalIcon
-                color={isMedicine ? COLORS.secondary : COLORS.primary}
-              />
-              <GlassesIcon
-                color={isBlind ? COLORS.secondary : COLORS.primary}
-              />
-            </View>
+            <Text style={{ fontSize: 14, fontWeight: "500" }}>
+              {description}
+            </Text>
           </View>
         </View>
       </Container>

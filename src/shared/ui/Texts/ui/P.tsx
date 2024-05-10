@@ -1,8 +1,9 @@
 import { Text } from "react-native";
 import { IText } from "@/src/shared/interface";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 
 const P = ({ text, size, color, isCenter, fontWight, opacity }: IText) => {
+  const COLORS = useColors();
   return (
     <Text
       style={{

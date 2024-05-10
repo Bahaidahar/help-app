@@ -1,13 +1,26 @@
 import { SafeAreaView, TouchableOpacity, View, Text } from "react-native";
-import React from "react";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import React, { useEffect, useState } from "react";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { Stack, useRouter } from "expo-router";
 import { P } from "@/src/shared/ui/Texts";
 import { InvalidCards } from "@/src/widgets/InvalidCards";
 import { Button } from "@/src/shared/ui/Button";
+import { getClientSupports } from "@/src/shared/api/invalid/myCard";
+import { ICard } from "@/src/shared/interface/InvalidCard";
 
 const FavoritesScreen = () => {
+  const COLORS = useColors();
   const router = useRouter();
+
+  const [supports, setSupprots] = useState<ICard[]>([]);
+  useEffect(() => {
+    handleGetSupport();
+  }, []);
+  const handleGetSupport = async () => {
+    const res = await getClientSupports();
+    setSupprots(res);
+  };
+  console.log(supports);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
       <Stack.Screen
@@ -33,7 +46,7 @@ const FavoritesScreen = () => {
             opacity={0.5}
           />
         </View>
-        <InvalidCards forInvalid />
+        <InvalidCards forInvalid searchValue={""} cards={supports} />
       </View>
       <View
         style={{

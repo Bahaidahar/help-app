@@ -1,12 +1,13 @@
 import { EyeClosedIcon, EyeIcon } from "@/src/shared/icons";
 import SearchIcon from "@/src/shared/icons/SearchIcon";
 import { IInput } from "@/src/shared/interface";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { useState } from "react";
 import { TextInput, TouchableOpacity } from "react-native";
 import { View } from "react-native";
 
 const Input = ({ placeholder, value, onChange, variant, type }: IInput) => {
+  const COLORS = useColors();
   const [showPass, setShowPass] = useState(false);
   switch (variant) {
     case "auth":
@@ -21,7 +22,7 @@ const Input = ({ placeholder, value, onChange, variant, type }: IInput) => {
               borderWidth: 1,
               borderRadius: SIZES.light,
               borderColor: COLORS.primary,
-              backgroundColor: "rgba(0, 112, 213, 0.2)",
+              backgroundColor: `${COLORS.primary}33`,
             }}
           >
             <TextInput
@@ -57,7 +58,7 @@ const Input = ({ placeholder, value, onChange, variant, type }: IInput) => {
             </View>
           </View>
         );
-      } else if (type === "text") {
+      } else {
         return (
           <TextInput
             placeholder={placeholder}
@@ -71,7 +72,7 @@ const Input = ({ placeholder, value, onChange, variant, type }: IInput) => {
               paddingVertical: 8,
               fontWeight: "500",
               fontSize: SIZES.regular,
-              backgroundColor: "rgba(0, 112, 213, 0.2)",
+              backgroundColor: `${COLORS.primary}33`,
             }}
             placeholderTextColor="gray"
           />
@@ -91,7 +92,7 @@ const Input = ({ placeholder, value, onChange, variant, type }: IInput) => {
         >
           <SearchIcon color={COLORS.contrat} />
           <TextInput
-            placeholder="Поиск"
+            placeholder="Пойск"
             value={value}
             onChangeText={onChange}
             style={{

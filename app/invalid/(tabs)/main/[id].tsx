@@ -1,13 +1,19 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
-import { COLORS, SIZES } from "@/src/shared/utils";
-import { Stack } from "expo-router";
+import { useColors, SIZES } from "@/src/shared/utils";
+import { Stack, useGlobalSearchParams } from "expo-router";
 import { Container } from "@/src/shared/ui/Contianer";
 import { P } from "@/src/shared/ui/Texts";
 import { EditIcon } from "@/src/shared/icons";
 import { Button } from "@/src/shared/ui/Button";
 
 const EditScreen = () => {
+  const COLORS = useColors();
+  const param = useGlobalSearchParams();
+
+  const id = param["id"] as string;
+  const [desc, addres] = id.split("-");
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
       <Stack.Screen
@@ -34,28 +40,27 @@ const EditScreen = () => {
               isCenter
               color={COLORS.primary}
             />
-            <View
+            {/* <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "flex-end",
               }}
             >
-              <P size="large" text="Я" />
               <TouchableOpacity>
                 <EditIcon color={COLORS.secondary} />
               </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={{ flexDirection: "column", gap: SIZES.light }}>
               <P size="medium" text="Местоположение:" />
               <P
                 size="regular"
                 color={COLORS.primary}
                 opacity={0.5}
-                text="Введите информацию о своём местоположении или включите геопозицию... "
+                text={addres}
               />
             </View>
-            <View style={{ flexDirection: "column", gap: SIZES.light }}>
+            {/* <View style={{ flexDirection: "column", gap: SIZES.light }}>
               <P size="medium" text="О себе:" />
               <P
                 size="regular"
@@ -63,24 +68,16 @@ const EditScreen = () => {
                 opacity={0.5}
                 text="Введите информацию о себе..."
               />
-            </View>
+            </View> */}
             <View style={{ flexDirection: "column", gap: SIZES.light }}>
               <P size="medium" text="Нужда:" />
               <P
                 size="regular"
                 color={COLORS.primary}
                 opacity={0.5}
-                text="Введите информацию о себе..."
+                text={desc}
               />
             </View>
-            <Button
-              padVer={10}
-              padHor={20}
-              onPress={() => {}}
-              color="secondary"
-              text="Изменить"
-              textSize="medium"
-            />
           </View>
         </Container>
       </View>

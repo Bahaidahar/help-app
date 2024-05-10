@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import MapView, { Polyline } from "react-native-maps";
 import { MapMarker } from "@/src/entities/MapMarker";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
+import { P } from "@/src/shared/ui/Texts";
 import { IMapMarker } from "@/src/shared/interface";
 import { View } from "react-native";
-import { Spinner } from "@/src/shared/ui/Spinner";
-import { P } from "@/src/shared/ui/Texts";
 
 interface IMyMap {
   showLine?: boolean;
@@ -14,6 +13,7 @@ interface IMyMap {
 }
 
 const MyMap = ({ showLine, markers }: IMyMap) => {
+  const COLORS = useColors();
   const [location, setLocation] = useState<Location.LocationObject>();
   const [locationLoaded, setLocationLoaded] = useState(false);
   const getPermissions = async () => {
@@ -34,7 +34,7 @@ const MyMap = ({ showLine, markers }: IMyMap) => {
   }, []);
   return (
     <View style={{ position: "relative" }}>
-      <MapView
+      {/* <MapView
         style={{
           width: "100%",
           height: 300,
@@ -94,7 +94,7 @@ const MyMap = ({ showLine, markers }: IMyMap) => {
         >
           <P size="medium" color={COLORS.additional} text="Маршрут сториться" />
         </View>
-      )}
+      )} */}
     </View>
   );
 };

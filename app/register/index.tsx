@@ -1,10 +1,11 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors } from "@/src/shared/utils";
 import { Stack } from "expo-router";
 
 import { SendCode } from "@/src/features/SendCode";
 
 const LoginPage = () => {
+  const COLORS = useColors();
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: COLORS.primary, paddingTop: 0 }}

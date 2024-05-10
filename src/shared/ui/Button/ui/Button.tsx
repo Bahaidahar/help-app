@@ -1,6 +1,6 @@
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { P } from "../../Texts";
 
 interface IButton {
@@ -26,6 +26,7 @@ const Button = ({
   children,
   textColor,
 }: IButton) => {
+  const COLORS = useColors();
   switch (varinat) {
     case "auth":
       return (

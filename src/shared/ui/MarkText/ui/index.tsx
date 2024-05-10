@@ -1,4 +1,4 @@
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { Text } from "react-native";
 
 interface IMarkText {
@@ -8,6 +8,7 @@ interface IMarkText {
 }
 
 const MarkText = ({ text, underline, textCenter }: IMarkText) => {
+  const COLORS = useColors();
   return (
     <Text
       style={{

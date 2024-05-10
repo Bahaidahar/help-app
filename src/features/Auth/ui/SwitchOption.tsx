@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 
 interface ISwitchOption {
   isLogin: boolean;
@@ -8,6 +8,7 @@ interface ISwitchOption {
 }
 
 const SwitchOption = ({ isLogin, setIsLogin }: ISwitchOption) => {
+  const COLORS = useColors();
   return (
     <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
       <View

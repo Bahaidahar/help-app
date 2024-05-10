@@ -1,10 +1,11 @@
 import { View } from "react-native";
 import { useState } from "react";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import AuthOption from "./AuthOption";
 import SwitchOption from "./SwitchOption";
 const AuthContainer = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const COLORS = useColors();
   return (
     <View
       style={{

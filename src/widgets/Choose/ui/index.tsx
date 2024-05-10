@@ -6,8 +6,10 @@ import { useRouter } from "expo-router";
 import { getData, storeData } from "@/src/shared/utils/storeData";
 import Step from "./Step";
 import Buttons from "./Buttons";
+import { useColors } from "@/src/shared/utils";
 
 const Choose = () => {
+  const COLORS = useColors();
   const [isFirst, setIsFirst] = useState(true);
   const router = useRouter();
   const onClickStoreRole = async (roleId: number) => {
@@ -57,7 +59,11 @@ const Choose = () => {
         </View>
       </View>
       <View style={{ position: "absolute", top: 140, zIndex: -1 }}>
-        {isFirst ? <BigHeartHalfIcon /> : <BigHeartHalfIcon isReversed />}
+        {isFirst ? (
+          <BigHeartHalfIcon color={COLORS.secondary} />
+        ) : (
+          <BigHeartHalfIcon isReversed color={COLORS.secondary} />
+        )}
       </View>
     </View>
   );

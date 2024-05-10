@@ -1,3 +1,3 @@
-import {COLORS} from './Colors'
+import {useColors} from './Colors'
 import { SIZES } from './Sizes'
-export {COLORS, SIZES}
+export {useColors, SIZES}

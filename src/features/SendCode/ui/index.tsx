@@ -1,22 +1,29 @@
 import { P } from "@/src/shared/ui/Texts";
-import { COLORS, SIZES } from "@/src/shared/utils";
-import { OTPInputField } from "@/src/entities/OTPInputField";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { Button } from "@/src/shared/ui/Button";
-import { Keyboard, Pressable, View } from "react-native";
-import { getData, storeData } from "@/src/shared/utils/storeData";
+import {
+  Keyboard,
+  Pressable,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { getData } from "@/src/shared/utils/storeData";
 import { useEffect, useState } from "react";
 import { verify } from "../api/verify";
 import { sendSMS } from "../api/sendSMS";
 import { useRouter } from "expo-router";
+import { Container } from "@/src/shared/ui/Contianer";
+import { MarkText } from "@/src/shared/ui/MarkText";
 
 const SendCode = () => {
+  const COLORS = useColors();
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [pinReady, setPinReady] = useState(false);
   const [errorMessage, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const router = useRouter();
-  const codeLength = 6;
   useEffect(() => {
     getPhone();
     handelSendSMS();
@@ -42,6 +49,10 @@ const SendCode = () => {
       router.push("/auth");
     }
   };
+  useEffect(() => {
+    setPinReady(code.length === 6);
+    return () => setPinReady(false);
+  }, [code]);
 
   return (
     <Pressable
@@ -54,41 +65,91 @@ const SendCode = () => {
         Keyboard.dismiss;
       }}
     >
-      <View style={{ flexDirection: "column", gap: SIZES.medium }}>
-        <P text="Ввeдите код " isCenter size="large" color={COLORS.contrat} />
-        {showMessage ? (
-          <P text={errorMessage} size="regular" isCenter color={COLORS.wrong} />
-        ) : null}
-        <OTPInputField
-          setCode={setCode}
-          code={code}
-          setPinReady={setPinReady}
-          maxLength={codeLength}
-        />
-        {pinReady ? (
-          <Button
-            onPress={onPressVerify}
-            color="secondary"
-            textSize="medium"
-            text="Потвердить"
-            padVer={10}
-            padHor={20}
-          />
-        ) : (
+      <Container size="big" verPad={24}>
+        <View>
           <View
             style={{
+              flexDirection: "column",
+              gap: SIZES.light,
               alignItems: "center",
-              backgroundColor: COLORS.secondary,
-              borderRadius: SIZES.light,
-              paddingHorizontal: 5,
-              paddingVertical: 10,
-              opacity: 0.7,
             }}
           >
-            <P size="medium" color={COLORS.contrat} text="Потвердить" />
+            <P size="medium" text="Напишите код с СМС" />
+            <P
+              size="regular"
+              fontWight="400"
+              text={`Код выслан на номер: ${phone}
+              `}
+            />
           </View>
-        )}
-      </View>
+          <TextInput
+            placeholder="******"
+            value={code}
+            onChangeText={setCode}
+            maxLength={6}
+            keyboardType="number-pad"
+            returnKeyType="done"
+            textContentType="oneTimeCode"
+            style={{
+              borderRadius: SIZES.light,
+              borderColor: COLORS.primary,
+              borderWidth: 1,
+              paddingHorizontal: 15,
+              paddingVertical: 8,
+              fontWeight: "500",
+              fontSize: SIZES.regular,
+              backgroundColor: "rgba(0, 112, 213, 0.2)",
+            }}
+            placeholderTextColor="gray"
+          />
+          <View
+            style={{
+              flexDirection: "column",
+              gap: SIZES.light,
+              marginBottom: SIZES.medium,
+              marginTop: SIZES.regular,
+            }}
+          >
+            <TouchableOpacity>
+              <MarkText text="СМС не пришла?" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MarkText text="Указали не тот номер?" />
+            </TouchableOpacity>
+          </View>
+          {showMessage ? (
+            <P
+              text={errorMessage}
+              size="regular"
+              isCenter
+              color={COLORS.wrong}
+            />
+          ) : null}
+          {pinReady ? (
+            <Button
+              onPress={onPressVerify}
+              padVer={15}
+              text="Потвердить"
+              textSize="medium"
+              color="secondary"
+              textColor={COLORS.additional}
+            />
+          ) : (
+            <View
+              style={{
+                alignItems: "center",
+                backgroundColor: COLORS.secondary,
+                borderRadius: SIZES.light,
+                width: "100%",
+                paddingVertical: 15,
+                opacity: 0.7,
+              }}
+            >
+              <P size="medium" color={COLORS.additional} text="Потвердить" />
+            </View>
+          )}
+        </View>
+      </Container>
     </Pressable>
   );
 };

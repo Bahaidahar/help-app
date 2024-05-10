@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React from "react";
-import { COLORS, SIZES } from "@/src/shared/utils";
+import { useColors, SIZES } from "@/src/shared/utils";
 import { Button } from "@/src/shared/ui/Button";
 import { useRouter } from "expo-router";
 interface IButtons {
@@ -15,6 +15,7 @@ const Buttons = ({
   onClickStoreRole,
   onClickStoreView,
 }: IButtons) => {
+  const COLORS = useColors();
   const router = useRouter();
   return (
     <View
@@ -29,7 +30,7 @@ const Buttons = ({
           <Button
             onPress={() => {
               setIsFirst(!isFirst);
-              onClickStoreRole(1);
+              onClickStoreRole(2);
             }}
             textSize="medium"
             text="Волонтёр"
@@ -40,7 +41,7 @@ const Buttons = ({
           <Button
             onPress={() => {
               setIsFirst(!isFirst);
-              onClickStoreRole(2);
+              onClickStoreRole(1);
             }}
             textSize="medium"
             text="Нуждающийся"

@@ -13,7 +13,7 @@ export const singin = async ({ password, phone }: IUserAuth) => {
        }`})
        await storeData({name:"refresh",storeData:`${res.data.refresh_token
        }`})
-      return res.status
+      return res
     } catch (error:any) {
         return error.response.data.detail
     }
